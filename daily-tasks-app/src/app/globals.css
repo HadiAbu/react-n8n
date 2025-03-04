@@ -2,11 +2,11 @@
 
 @plugin 'tailwindcss-animate';
 
-@custom-variant dark (&:is(.dark *));
-@tailwind utilities;
+/* @custom-variant dark (&:is(.dark *)); */
+/* @tailwind utilities; */
 /* @tailwind base;
 @tailwind components; */
-@tailwind utilities;
+/* @tailwind utilities; */
 
 @theme inline {
   --color-background: var(--background);

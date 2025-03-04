@@ -29,7 +29,7 @@ export default function Dashboard() {
               <span>{task}</span>
               <Button
                 onClick={() => handleComplete(index)}
-                className="text-green-600 font-bold "
+                className="text-green-600 font-bold bg-indigo-300"
               >
                 ✔
               </Button>
