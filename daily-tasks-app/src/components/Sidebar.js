@@ -1,12 +1,13 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
+import { useSidebar } from '@/context/SidebarContext';
 
 export default function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { isCollapsed, toggleSidebar } = useSidebar();
   const [user, setUser] = useState(null);
   const router = useRouter();
 
@@ -37,37 +38,27 @@ export default function Sidebar() {
         isCollapsed ? 'w-20' : 'w-60'
       }`}
     >
-      <button
-        onClick={() => setIsCollapsed(!isCollapsed)}
-        className="bg-gray-600 p-2 rounded mb-4 hover:bg-gray-500 transition-all"
-      >
-        {isCollapsed ? '➡' : '⬅'}
-      </button>
+      {user && (
+        <button
+          onClick={toggleSidebar}
+          className="bg-gray-600 p-2 rounded mb-4 hover:bg-gray-500 transition-all"
+        >
+          {isCollapsed ? '➡' : '⬅'}
+        </button>
+      )}
 
       <nav className="space-y-4">
         {user ? (
           <>
-            <Link
-              href="/dashboard"
-              className={`block hover:underline ${
-                isCollapsed ? 'text-xs' : ''
-              }`}
-            >
+            <Link href="/dashboard" className="block hover:underline">
               📋 Dashboard
             </Link>
-            <Link
-              href="/settings"
-              className={`block hover:underline ${
-                isCollapsed ? 'text-xs' : ''
-              }`}
-            >
+            <Link href="/settings" className="block hover:underline">
               ⚙️ Settings
             </Link>
             <button
               onClick={handleLogout}
-              className={`mt-4 w-full bg-red-500 p-2 rounded cursor-pointer ${
-                isCollapsed ? 'text-xs' : ''
-              }`}
+              className="mt-4 w-full bg-red-500 p-2 rounded cursor-pointer"
             >
               🚪 Logout
             </button>
