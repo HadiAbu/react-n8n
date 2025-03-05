@@ -3,20 +3,18 @@
 import { useState } from 'react';
 import { supabase } from '@/lib/supabaseClient';
 import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 
-export default function LoginPage() {
+export default function SignupPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
 
-  const handleLogin = async (e) => {
+  const handleSignup = async (e) => {
     e.preventDefault();
     setError('');
 
-    const { error } = await supabase.auth.signInWithPassword({
+    const { error } = await supabase.auth.signUp({
       email,
       password,
     });
@@ -24,16 +22,17 @@ export default function LoginPage() {
     if (error) {
       setError(error.message);
     } else {
-      router.push('/dashboard'); // Redirect to dashboard after login
+      alert('Check your email for confirmation!');
+      router.push('/login');
     }
   };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
-        <h1 className="text-xl font-bold mb-4">Login</h1>
+        <h1 className="text-xl font-bold mb-4">Sign Up</h1>
         {error && <p className="text-red-500">{error}</p>}
-        <form onSubmit={handleLogin} className="space-y-4">
+        <form onSubmit={handleSignup} className="space-y-4">
           <input
             type="email"
             placeholder="Email"
@@ -50,21 +49,13 @@ export default function LoginPage() {
             onChange={(e) => setPassword(e.target.value)}
             required
           />
-          <Button
+          <button
             type="submit"
-            className="w-full bg-blue-600 text-white p-2 rounded cursor-pointer"
+            className="w-full bg-green-600 text-white p-2 rounded cursor-pointer"
           >
-            Login
-          </Button>
+            Sign Up
+          </button>
         </form>
-
-        {/* Show Sign Up Option */}
-        <div className="mt-4 text-center">
-          <p>{`Don't have an account?`}</p>
-          <Link href="/signup" className="text-blue-600 hover:underline">
-            Sign up here
-          </Link>
-        </div>
       </div>
     </div>
   );

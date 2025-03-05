@@ -23,7 +23,7 @@ export const metadata = {
 //   return (
 //     <html lang="en">
 //       <body
-//         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+//         className={`${geistSans.variable} ${geistMono.variable} flex antialiased`}
 //       >
 //         {children}
 //       </body>
@@ -38,7 +38,8 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} flex antialiased`}
       >
         <Sidebar />
-        <div className="flex-1">
+        {/* Add a left margin (ml-60) so the main content doesn't get overlapped */}
+        <div className="flex-1 ml-60">
           <Navbar />
           <main className="p-4">{children}</main>
         </div>
